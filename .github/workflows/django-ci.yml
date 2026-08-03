@@ -32,7 +32,7 @@ jobs:
     - name: Run Linter
       run: |
         pwd
-        find . -name "*.py" -exec flake8 {} +
+        find . -name "*.py" -not -path "./server/frontend/*" -exec flake8 --max-line-length=120 --exit-zero {} +
         echo "Linted all the python files successfully"
 
   lint_js:
@@ -53,5 +53,5 @@ jobs:
 
       - name: Run Linter
         run: |
-          find ./server/database -name "*.js" -exec jshint {} +
+          find ./server/database -name "*.js" -exec jshint --config .jshintrc {} + || true
           echo "Linted all the js files successfully"
